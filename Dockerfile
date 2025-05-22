@@ -1,13 +1,12 @@
 FROM python:3.12-slim
 
-RUN pip install uv
+# ⬇ Pull uv binary from prebuilt image (fast, reliable)
+COPY --from=ghcr.io/astral-sh/uv:latest /uv /uvx /bin/
 
+# ⬇ Copy code and install with strict mode
+COPY . /app
 WORKDIR /app
-COPY . .
+RUN uv sync --frozen --no-cache  # frozen = must match lockfile
 
-# Install dependencies using lockfile
-RUN uv sync
-
-EXPOSE 8000
-
-CMD ["uv", "run", "fastapi", "dev"]
+# ⬇ Run FastAPI via the actual venv binary
+CMD ["/app/.venv/bin/fastapi", "run", "app/main.py", "--port", "80", "--host", "0.0.0.0"]
