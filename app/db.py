@@ -12,8 +12,8 @@ from app.config import settings
 # if ENVIRONMENT == "DEVELOPMENT":
 #     DATABASE_URL = os.environ.get("DB_LINK")
 
-print(settings.db_link)
+print(settings.db_url)
 
-engine = create_engine(settings.db_link, echo=True)
+engine = create_engine(settings.db_url, echo=True)
 def create_db_and_tables():
     SQLModel.metadata.create_all(engine)
