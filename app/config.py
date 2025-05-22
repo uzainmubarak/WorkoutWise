@@ -8,7 +8,7 @@ load_dotenv(find_dotenv(".env", raise_error_if_not_found=False))
 
 class Settings(BaseSettings):
     environment: str = "PRODUCTION"
-    db_link: str
+    db_url: str
 
     class Config:
         env_file = ".env"  # fallback in case not loaded manually
