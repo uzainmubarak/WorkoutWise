@@ -17,3 +17,6 @@ app = FastAPI(lifespan=lifespan)
 
 # Your routes go here
 
+@app.get("/")
+def get_root():
+    return {"message": "Hello World"}
