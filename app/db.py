@@ -1,16 +1,19 @@
 from sqlmodel import SQLModel, create_engine
-import os
-from dotenv import load_dotenv
-load_dotenv(".env.local")
+# import os
+# from dotenv import load_dotenv, find_dotenv
 
-DATABASE_URL = os.environ.get("DB_LINK")
+from app.config import settings
 
-# DB_USER: str = "postgres"
-# DB_PASSWORD: str = "12345678"
-# DB_HOST: str = "localhost"
-# DB_NAME: str = "workoutwise"
-print(DATABASE_URL)
 
-engine = create_engine(DATABASE_URL, echo=True)
+# load_dotenv()
+# DATABASE_URL = os.environ.get("DB_LINK")
+
+# ENVIRONMENT = os.environ.get("ENVIRONMENT")
+# if ENVIRONMENT == "DEVELOPMENT":
+#     DATABASE_URL = os.environ.get("DB_LINK")
+
+print(settings.db_link)
+
+engine = create_engine(settings.db_link, echo=True)
 def create_db_and_tables():
     SQLModel.metadata.create_all(engine)
